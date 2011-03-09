@@ -614,6 +614,10 @@ class Resource(object):
             bundle.obj = self._meta.object_class()
         
         for field_name, field_object in self.fields.items():
+            # hack
+            if getattr(field_object, 'is_m2m', False):
+                continue
+
             if field_object.attribute:
                 value = field_object.hydrate(bundle)
                 
